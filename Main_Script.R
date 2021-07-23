@@ -11,7 +11,7 @@ library(DBI)
 library(readxl)
 
 #Read spreadsheet into R
-Climate_Data_Table <- read_excel("Net Carbon Zero and impact of different variables July 2021.xlsx")
+Climate_Data_Table <- read_excel("Net Carbon Zero and impact of different variables July 2021 - Copy.xlsx")
 
 #Connecting database created in SQLite.
 mydb <- dbConnect(RSQLite::SQLite(), "Climate_Data.sqlite")
