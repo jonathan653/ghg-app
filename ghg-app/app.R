@@ -8,6 +8,8 @@
 #
 
 library(shiny)
+library(plotly)
+library(DT)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -18,16 +20,22 @@ ui <- fluidPage(
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
         sidebarPanel(
+          h2("Otago University's Greenhouse Gas Emissions")
             sliderInput("bins",
                         "Number of bins:",
                         min = 1,
                         max = 50,
                         value = 30)
         ),
-
+        downloadButton(outputId = "export_data", label = "Export Data"),
+    ),
         # Show a plot of the generated distribution
         mainPanel(
-           plotOutput("distPlot")
+          
+           
+          
+          
+          plotOutput("distPlot")
         )
     )
 )
