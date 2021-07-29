@@ -13,21 +13,66 @@ library(shiny)
 ui <- fluidPage(
 
     # Application title
-    titlePanel("Old Faithful Geyser Data"),
+  tags$br(),
+  tags$img(src = "https://www.otago.ac.nz/_assets/_gfx/logo@2x.png", width = "160px", height = "80px"),  
+  titlePanel("Greenhouse Gas Emissions"),
+    tags$h4("University of Otago's Sustainability Office"),
+    tags$br(),
 
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
         sidebarPanel(
+          width = 4,
+          tags$h3("Student (% change)"),
             sliderInput("bins",
-                        "Number of bins:",
+                        "Variable 1",
                         min = 1,
                         max = 50,
-                        value = 30)
+                        value = 30),
+          sliderInput("bins",
+                      "Variable 2",
+                      min = 1,
+                      max = 50,
+                      value = 30),
+          tags$h3("Behavioural change"),
+          sliderInput("bins",
+                      "Variable 3",
+                      min = 1,
+                      max = 50,
+                      value = 30),
+          sliderInput("bins",
+                      "Variable 4",
+                      min = 1,
+                      max = 50,
+                      value = 30),
+          tags$h3("NZ electricity grid - % renewables"),
+          sliderInput("bins",
+                      "Variable 3",
+                      min = 1,
+                      max = 50,
+                      value = 30)
         ),
 
         # Show a plot of the generated distribution
         mainPanel(
-           plotOutput("distPlot")
+           plotOutput("distPlot"),
+           tags$br(),
+           tags$div(
+             tags$p(tags$h3("About this dashboard")), 
+             tags$p("The purpose of this dashboard is to help stakeholders easily understand the 
+                    high-level impacts of various factors (from a University context) on 
+                    net greenhouse gas emissions. 
+                    
+                    The University of Otago has set an ambitious goal of Net Carbon Zero by year 2030.
+                    Net Carbon Zero refers to the equivalent of net zero greenhouse gas emissions after 
+                    efforts to both reduce greenhouse gases and offsetting these emissions through 
+                    various strategies or initiatives.")
+           ),
+           tags$div(
+             tags$p(tags$h3("Further resources")), 
+             tags$p("Links to other relevant resources")
+           ), 
+           tags$br()
         )
     )
 )
