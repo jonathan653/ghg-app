@@ -13,7 +13,7 @@ library(shiny)
 ui <- fluidPage(
   # Application title
   tags$br(),
-  tags$img(src = "https://www.otago.ac.nz/_assets/_gfx/logo@2x.png", width = "160px", height = "80px"),  
+  tags$img(src = "https://www.otago.ac.nz/_assets/_gfx/logo@2x.png", width = "160px", height = "80px"),
   titlePanel("Greenhouse Gas Emissions"),
   style = "font-family: 'Open Sans', sans-serif;",
   tags$h4("University of Otago's Sustainability Office"),
@@ -63,7 +63,7 @@ ui <- fluidPage(
         tags$p("By engaging with this dashboard, we hope to drive awareness and behavioural change, 
                     alongside guiding the University's strategic approach towards Net Carbon Zero.
                     "),
-        style = "font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: normal; line-height: 1.8;"
+        style = "font-family: 'Open Sans', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.8;"
       ),
       tags$div(
         tags$p(tags$h3("Further information")), 
@@ -72,7 +72,10 @@ ui <- fluidPage(
         (in tonnes of CO-equivalent) / 7.8 = # of hectares to plant"),
         tags$p("How much it would cost to buy carbon credits from the market to offset this level of emissions = total emissions * $150"),
         tags$p(tags$h3("Resources")),
-        style = "font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: normal; line-height: 1.8;"
+        style = "font-family: 'Open Sans', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.8;",
+        tags$p(tags$a(href="https://www.otago.ac.nz/sustainability/about/", "University of Otago's Sustainability Office")),
+        tags$p(tags$a(href="https://www.otago.ac.nz/sustainability/news/otago828588.html", "University of Otago makes submission to ORC's draft 10 year plan")),
+        tags$p(tags$a(href="https://www.otago.ac.nz/sustainability/otago824241.pdf", "University of Otago's 2019 Greenhouse Gas Inventory")),
       ), 
       tags$br()
     )
