@@ -50,7 +50,9 @@ ui <- fluidPage(
     mainPanel(
       tags$style(" {background-color: #dd4b39;}"),
       downloadButton('ExportPlot', 'Export as png'),
+
       plotOutput("plot"),
+
       tags$br(),
       tags$div(
         tags$p(tags$h3("About this dashboard")), 
