@@ -50,7 +50,9 @@ ui <- fluidPage(
     mainPanel(
       tags$style(" {background-color: #dd4b39;}"),
       downloadButton('ExportPlot', 'Export as png'),
-      plotOutput("distPlot"),
+
+      plotOutput("plot"),
+
       tags$br(),
       tags$div(
         tags$p(tags$h3("About this dashboard")), 
@@ -86,14 +88,33 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   
-  output$distPlot <- renderPlot({
-    # generate bins based on input$bins from ui.R
-    x    <- faithful[, 2]
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+  Base_Scenario <- read_excel("Project_Figures.xlsx",
+                              sheet = "4. Total base scenario", range = "A1:M11")
+  #Pivoting base scenario table to make graphing easier.
+  Base_Scenario <- Base_Scenario %>% 
+    pivot_longer(cols = `2021`:`2032`, names_to = "Year",
+                 values_to ="Carbon_Emissions",
+                 names_repair = "minimal")
+  #Rounding figures for base scenario table.
+  Base_Scenario$Carbon_Emissions <- round(Base_Scenario$Carbon_Emissions,
+                                          digits = 2)
+  #Sorting the base scenario table for easier graphing.
+  Base_Scenario <- Base_Scenario %>%
+    group_by(Year) %>% 
+    arrange(Year)
+  
+  
+  output$plot <- renderPlot({
     
-    # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
-  })
+    #Graphing the base scenario.
+    Base_Scenario_Graph <- Base_Scenario %>% 
+      ggplot() +
+      geom_col(aes(x = Year, y = Carbon_Emissions, fill = Emissions),
+               position = "stack", na.rm = TRUE) +
+      theme(legend.position="right")
+    Base_Scenario_Graph
+    
+  })  
 }
 
 # download feature
