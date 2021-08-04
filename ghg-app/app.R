@@ -14,7 +14,7 @@ ui <- fluidPage(
   # Application title
   tags$br(),
   tags$img(src = "https://www.otago.ac.nz/_assets/_gfx/logo@2x.png", width = "160px", height = "80px"),
-  titlePanel("Greenhouse Gas Emissions"),
+  titlePanel(tags$strong("Greenhouse Gas Emissions Pathway Tool")),
   style = "font-family: 'Open Sans', sans-serif;",
   tags$h4("University of Otago's Sustainability Office"),
   tags$br(),
@@ -49,6 +49,7 @@ ui <- fluidPage(
     # Show a plot of the generated distribution
     mainPanel(
       tags$style(" {background-color: #dd4b39;}"),
+      downloadButton('ExportPlot', 'Export as png'),
       plotOutput("distPlot"),
       tags$br(),
       tags$div(
@@ -67,11 +68,11 @@ ui <- fluidPage(
       ),
       tags$div(
         tags$p(tags$h3("Further information")), 
-        tags$p("To add how many hectares of trees would need to be planted by 2025 in order to reach Net Zero emissions in 2030 for a given set of variables. 
-        This is based on 1 hectare of new indigenous forest sequestering 7.8 tonnes of CO2-e by it’s fifth year, so the formula would = total university emissions 
-        (in tonnes of CO-equivalent) / 7.8 = # of hectares to plant"),
-        tags$p("How much it would cost to buy carbon credits from the market to offset this level of emissions = total emissions * $150"),
-        tags$p(tags$h3("Resources")),
+        tags$p("With the given set of variables currently i.e. student numbers, behavioural change, and NZ electricity grid, 
+        XXX hectares of trees would need to be planted by 2025 in order to reach net zero emissions in 2030. 
+        These figures are based on 1 hectare of new indigenous forest sequestering 7.8 tonnes of CO2-e by its fifth year."),
+        tags$p("To buy carbon credits from the market to offset the current emissions, the cost would be XXX - total emissions * $150."),
+        tags$p(tags$h3("Links to resources")),
         style = "font-family: 'Open Sans', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.8;",
         tags$p(tags$a(href="https://www.otago.ac.nz/sustainability/about/", "University of Otago's Sustainability Office")),
         tags$p(tags$a(href="https://www.otago.ac.nz/sustainability/news/otago828588.html", "University of Otago makes submission to ORC's draft 10 year plan")),
@@ -94,6 +95,19 @@ server <- function(input, output) {
     hist(x, breaks = bins, col = 'darkgray', border = 'white')
   })
 }
+
+# download feature
+# output$ExportPlot <- downloadHandler(
+  # file name
+  # filename <- 'plot.png',
+  # content
+  # content = function(file){
+    # create plot
+    # export(p = thePlot(), file = 'tempPlot.png')
+    # hand over the file
+    # file.copy('tempPlot.png',file)
+  # }
+# )
 
 # Run the application 
 shinyApp(ui = ui, server = server)
