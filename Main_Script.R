@@ -40,9 +40,11 @@ Base_Scenario <- Base_Scenario %>%
   group_by(Year) %>% 
   arrange(Year)
 
+Base_Scenario$Year <- as.numeric(Base_Scenario$Year)
+typeof("Year")
 
 
-
+Base_Scenario[0,1]
 
 
 #STUDENT NUMBERS
@@ -122,16 +124,39 @@ Carbon_Offsets <- Carbon_Offsets %>%
 Carbon_Offsets$Offsets <- round(Carbon_Offsets$Offsets,
                                         digits = 2)
 
+#Adjusted_Base_scenario
+Adjusted_Multiplier <- read_excel("Project_Figures.xlsx", 
+                                  +     sheet = "6. Modelling BS numbers", range = "A1:M11")
+#Pivoting Adjusted_Multiplier table to make graphing easier.
+Adjusted_Multiplier <- Adjusted_Multiplier %>% 
+  pivot_longer(cols = `2021`:`2032`, names_to = "Year",
+               values_to ="Offsets",
+               names_repair = "minimal")
+#Rounding figures for Adjusted_Multiplier table.
+Adjusted_Multiplier$Offsets <- round(Adjusted_Multiplier$Offsets,
+                                digits = 2)
 
-
-
-
+#setting the legend order for the graph
+bar_order <- list(
+  "`Staff Air Travel - domestic and international`" = 9,
+  "`Student air travel - domestic and international`" = 8,
+  "`Steam & MTHW - coal (incl losses)`" = 7,
+  "`Electricity (incl transmission losses)`" = 6,
+  "`Purchased Goods and Services - Food`" = 5,
+  "`Waste from operations - to landfill, recycling and water processing`" = 4,
+  "`Stationary Combustion - coal`" = 3,
+  "`Employee Commuting - Private vehicles`" = 2,
+  "`Stationary Combustion - LPG`" = 1,
+  "`Other`" = 0
+)
+bar_order_v <- as.numeric(bar_order)
 #Graphing the base scenario.
 Base_Scenario_Graph <- Base_Scenario %>% 
   ggplot() +
   geom_col(aes(x = Year, y = Carbon_Emissions, fill = Emissions),
            position = "stack", na.rm = TRUE) +
-  theme(legend.position="right")
+  theme(legend.position="right") +
+  
 Base_Scenario_Graph
 
 #Trying to overlay the carbon offsets on the base graph.
@@ -142,3 +167,27 @@ Base_Scenario_Test <- Base_Scenario %>%
   geom_col(data = Carbon_Offsets,
            aes(x = Year, y = Offsets, fill = NA))
 Base_Scenario_Test
+
+
+
+#density chart attempt
+Carbon_Offsets %>% 
+  ggplot(aes(Carbon_Emissions)) +
+  geom_density(aes(fill = factor(Emissions), position = "stack"))
+
+
+function(Base_Scenario, Emit){
+  if (Year <= 2019 && Year <= 2021){
+    
+  }else if( Year == 2022){
+    'Staff Air Travel - domestic and international'[0,11]* (1 + (0.025 * Emit))
+  }else{
+    'Staff Air Travel - domestic and international'[0,21] * (1 + (0.075 * Emit))
+  }
+}
+
+Base_Scenario %>% 
+  summarise('Staff Air Travel - domestic and international'[,1])
+
+help()
+Base_Scenario %>% 
