@@ -29,32 +29,25 @@ ui <- fluidPage(
       width = 4,
       tags$h3("Student numbers"),
       tags$style(HTML(".js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {background: 	#00508F}")),
-      sliderInput("bins",
+      sliderInput("StudentSlider",
                   "(Percentage change)",
-                  min = 1,
-                  max = 50,
-                  value = 30),
+                  min = -50,
+                  max = 100,
+                  value = 0), step = 10,
       tags$h3("Behavioural change"),
       tags$style(HTML(".js-irs-1 .irs-single, .js-irs-1 .irs-bar-edge, .js-irs-1 .irs-bar {background: 	#00508F}")),
-      sliderInput("bins",
-                  "(Lorem ipsum)",
-                  min = 1,
-                  max = 50,
-                  value = 30),
+      sliderInput("BehaviourSlider",
+                  "(Level of Change)",
+                  min = -2,
+                  max = +2,
+                  value = 0),
       tags$h3("NZ electricity grid"),
       tags$style(HTML(".js-irs-2 .irs-single, .js-irs-2 .irs-bar-edge, .js-irs-2 .irs-bar {background: 	#00508F}")),
-      sliderInput("bins",
+      sliderInput("ElectricitySlider",
                   "(Percentage to renewables)",
                   min = 1,
-                  max = 50,
-                  value = 30),
-      tags$h3("Sample Reactive Input"),
-      tags$style(HTML(".js-irs-2 .irs-single, .js-irs-2 .irs-bar-edge, .js-irs-2 .irs-bar {background: 	#00508F}")),
-      sliderInput("Emit",
-                  "(Percentage total Emissions change)",
-                  min = -50,
-                  max = 50,
-                  value = 00)
+                  max = 5,
+                  value = 1)
     ),
     
     # Show a plot of the generated distribution
@@ -117,31 +110,54 @@ server <- function(input, output) {
     group_by(Year) %>% 
     arrange(Year)
   
+
+  #Adjusted_Base_scenario
+  Adjusted_Multiplier <- read_excel("~/Documents/Comp372/ClimateGit/ghg-app/ghg-app/Project_Figures.xlsx",
+                                    sheet = "6.Adjustments", range = "A1:M11")
+  #Pivoting Adjusted_Multiplier table to make graphing easier.
+  Adjusted_Multiplier <- Adjusted_Multiplier %>%
+    pivot_longer(cols = `2021`:`2032`, names_to = "Year",
+                 values_to ="Multipliers",
+                 names_repair = "minimal")
+  #Rounding figures for Adjusted_Multiplier table.
+  Adjusted_Multiplier$Multipliers <- round(Adjusted_Multiplier$Multipliers,
+                                       digits = 2)
   
-  f <- function(Carbon_Emissions, Emit){
-      Carbon_Emissions + ((Carbon_Emissions * Emit)/100)
-  }
   
-  StudenttNo <-function(Base_Scenario, Emit){
-    if (Year <= 2019 && Year <= 2021){
-      
-    }else if( Year == 2022){
-      'Staff Air Travel - domestic and international'[1,11]* (1 + (0.025 * Emit))
-    }else{
-      'Staff Air Travel - domestic and international'[1,21] * (1 + (0.075 * Emit))
-    }
+  #Pulls out Emissions category so we can use it in future function calls
+  BaseEmissions <- function(Category, TheYear){
+    (Base_Scenario %>% filter(Emissions == Category, Year == TheYear) %>% select(Carbon_Emissions))$Carbon_Emissions
   }
+  BaseEmissions( "Staff Air Travel - domestic and international",  2022) 
+ 
+  #Pulls out multiplier so we can use it in future function calls
+   BaseMultiplier <- function(Category, TheYear){
+     (Adjusted_Multiplier %>% filter(Emissions == Category, Year == TheYear) %>% select(Multipliers))$Multipliers
+     #returns multiplier
+  }
+  BaseMultiplier("Staff Air Travel - domestic and international",  2022)
+    
+   #call multiplier with User input on Student Numbers
+   StudentNumbers<-function(Category, TheYear, StudentSlider){
+     BaseEmissions()* (1 + (BaseMultiplier() * (StudentSlider/10)))
+   }
+#will need to loop this function
+  
   
   output$plot <- renderPlot({
-    
+
     #Graphing the base scenario.
-    Base_Scenario_Graph <- Base_Scenario %>% 
-      ggplot() +
-      geom_col(aes(x = Year, y = StudenttNo(Base_Scenario, input$Emit), fill = Emissions),
-               position = "stack", na.rm = TRUE) +
-      theme(legend.position="right")
-    Base_Scenario_Graph
+      #geom_col(aes(x = Year, y = StudentNumbers(Category, TheYear, input$StudentSlider), fill = Emissions),
     
+    Base_Scenario_Graph <- Base_Scenario %>%
+      ggplot() +
+      geom_col(aes(x = Year, y = Carbon_Emissions, fill = Emissions),
+               position = position_stack(reverse = TRUE), na.rm = TRUE,
+               stat="identity", color="black") +
+      theme(legend.position="right") +
+      guides(fill = guide_legend(reverse = TRUE)) +
+      ylab("CO2 Emissions (Tonnes)")
+    Base_Scenario_Graph
   })  
 }
 
