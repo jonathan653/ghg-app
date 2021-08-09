@@ -47,7 +47,14 @@ ui <- fluidPage(
                   "(Percentage to renewables)",
                   min = 1,
                   max = 50,
-                  value = 30)
+                  value = 30),
+      tags$h3("Sample Reactive Input"),
+      tags$style(HTML(".js-irs-2 .irs-single, .js-irs-2 .irs-bar-edge, .js-irs-2 .irs-bar {background: 	#00508F}")),
+      sliderInput("Emit",
+                  "(Percentage total Emissions change)",
+                  min = -50,
+                  max = 50,
+                  value = 00)
     ),
     
     # Show a plot of the generated distribution
@@ -99,6 +106,9 @@ server <- function(input, output) {
     pivot_longer(cols = `2021`:`2032`, names_to = "Year",
                  values_to ="Carbon_Emissions",
                  names_repair = "minimal")
+  #changing type of Year
+  Base_Scenario$Year <- as.numeric(Base_Scenario$Year)
+
   #Rounding figures for base scenario table.
   Base_Scenario$Carbon_Emissions <- round(Base_Scenario$Carbon_Emissions,
                                           digits = 2)
@@ -108,12 +118,26 @@ server <- function(input, output) {
     arrange(Year)
   
   
+  f <- function(Carbon_Emissions, Emit){
+      Carbon_Emissions + ((Carbon_Emissions * Emit)/100)
+  }
+  
+  StudenttNo <-function(Base_Scenario, Emit){
+    if (Year <= 2019 && Year <= 2021){
+      
+    }else if( Year == 2022){
+      'Staff Air Travel - domestic and international'[1,11]* (1 + (0.025 * Emit))
+    }else{
+      'Staff Air Travel - domestic and international'[1,21] * (1 + (0.075 * Emit))
+    }
+  }
+  
   output$plot <- renderPlot({
     
     #Graphing the base scenario.
     Base_Scenario_Graph <- Base_Scenario %>% 
       ggplot() +
-      geom_col(aes(x = Year, y = Carbon_Emissions, fill = Emissions),
+      geom_col(aes(x = Year, y = StudenttNo(Base_Scenario, input$Emit), fill = Emissions),
                position = "stack", na.rm = TRUE) +
       theme(legend.position="right")
     Base_Scenario_Graph
