@@ -37,14 +37,15 @@ ui <- fluidPage(
                   step = 0.10),
       tags$h3("Behavioural change"),
       tags$style(HTML(".js-irs-1 .irs-single, .js-irs-1 .irs-bar-edge, .js-irs-1 .irs-bar {background: #00508F}")),
-      sliderInput("bins",
+      sliderInput("BehaviourSlider",
+
                   "(Level of Change)",
                   min = -2,
                   max = +2,
                   value = 0),
       tags$h3("NZ electricity grid"),
-      tags$style(HTML(".js-irs-2 .irs-single, .js-irs-2 .irs-bar-edge, .js-irs-2 .irs-bar {background: #00508F}")),
-      sliderInput("bins1", # 09aug2021 luna
+      tags$style(HTML(".js-irs-2 .irs-single, .js-irs-2 .irs-bar-edge, .js-irs-2 .irs-bar {background: 	#00508F}")),
+      sliderInput("ElectricitySlider",
                   "(Percentage to renewables)",
                   min = 1,
                   max = 5,
@@ -102,7 +103,7 @@ server <- function(input, output) {
                  names_repair = "minimal")
   #changing type of Year
   Base_Scenario$Year <- as.numeric(Base_Scenario$Year)
- 
+
   #Rounding figures for base scenario table.
   Base_Scenario$Carbon_Emissions <- round(Base_Scenario$Carbon_Emissions,
                                           digits = 2)
@@ -114,6 +115,7 @@ server <- function(input, output) {
  
   #Adjusted_Base_scenario
   Adjusted_Multiplier <- read_excel("Project_Figures.xlsx",
+
                                     sheet = "6.Adjustments", range = "A1:M11")
   #Pivoting Adjusted_Multiplier table to make graphing easier.
   Adjusted_Multiplier <- Adjusted_Multiplier %>%
@@ -123,12 +125,12 @@ server <- function(input, output) {
   #Rounding figures for Adjusted_Multiplier table.
   Adjusted_Multiplier$Multipliers <- round(Adjusted_Multiplier$Multipliers,
                                        digits = 2)
- 
- 
+
   #Pulls out Emissions category so we can use it in future function calls
   BaseEmissions <- function(Category, TheYear){
     (Base_Scenario %>% filter(Emissions == Category, Year == TheYear) %>% select(Carbon_Emissions))$Carbon_Emissions
   }
+
   BaseEmissions( "Staff Air Travel - domestic and international",  2022)
  
   #Pulls out multiplier so we can use it in future function calls
@@ -163,6 +165,7 @@ server <- function(input, output) {
     #geom_col(aes(x = Year, y = StudentNumbers(Category, TheYear, input$StudentSlider), fill = Emissions),
    
    
+
     Base_Scenario_Graph <- Base_Scenario %>%
       ggplot() +
       geom_col(aes(x = Year, y = Carbon_Emissions, fill = Emissions),
