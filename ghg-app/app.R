@@ -33,7 +33,7 @@ ui <- fluidPage(
                   "(Percentage change)",
                   min = -50,
                   max = 100,
-                  value = 0), step = 10,
+                  value = 0, step = 10),
       tags$h3("Behavioural change"),
       tags$style(HTML(".js-irs-1 .irs-single, .js-irs-1 .irs-bar-edge, .js-irs-1 .irs-bar {background: 	#00508F}")),
       sliderInput("BehaviourSlider",
