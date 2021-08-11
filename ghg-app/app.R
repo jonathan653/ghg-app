@@ -31,16 +31,11 @@ ui <- fluidPage(
       tags$style(HTML(".js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {background: #00508F}")),
       sliderInput("StudentSlider",
                   "(Percentage change)",
-<<<<<<< HEAD
-                  min = -50,
-                  max = 100,
-                  value = 0, step = 10),
-=======
                   min = 0,
                   max = 1,
                   value = 0,
                   step = 0.10),
->>>>>>> d1b56992746af5b5fef1d6b1d45c43d948ea7af3
+
       tags$h3("Behavioural change"),
       tags$style(HTML(".js-irs-1 .irs-single, .js-irs-1 .irs-bar-edge, .js-irs-1 .irs-bar {background: #00508F}")),
       sliderInput("BehaviourSlider",
@@ -148,13 +143,18 @@ server <- function(input, output) {
  
   #call multiplier with User input on Student Numbers
   StudentNumbers<-function(Category, TheYear, StudentSlider){
-    BaseEmissions()* (1 + (BaseMultiplier() * (StudentSlider/10)))
+    BaseEmissions()* (1 + (BaseMultiplier() * (StudentSlider)))
   }
+  
+  StudentNumbers("Staff Air Travel - domestic and international", 2022)
   #will need to loop this function
 
   # new_scenario <- reactive({
   #   req(input$StudentSlider, input$...)
-  #  
+  #    StudentNumbers<-reactive({
+  #req(input$StudentSlider, Emissions, BaseMultiplier)
+  #BaseEmissions()* (1 + (BaseMultiplier() * (StudentSlider)))
+#})
   #  
   #   vector_st_nu <- lapply(2021:2032, function(i) {
   #     st_nu <- StudentNumbers("spreadsheet name", i, input$StudentSlider)
