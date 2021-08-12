@@ -11,4 +11,4 @@ By Brett, Don, Jonathan, and Monique
 - Limited visibility count for free shinyapps.io account<br>
 - Deployed from RStudio script<br>
 - Data provided by Craig Cliff<br>
-- Added ability to export data visualisation (TBC)<br>
+- Ability to interact with sliders and plot visualisation<br>
