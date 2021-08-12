@@ -68,11 +68,16 @@ ui <- fluidPage(
       plotOutput("plot"),
 
       tags$br(),
+      
       tags$div(
-        tags$p("With the given set of variables currently i.e. student numbers, behavioural change, and NZ electricity grid,
-        XXX hectares of trees would need to be planted by 2025 in order to reach net zero emissions in 2030.
-        These figures are based on 1 hectare of new indigenous forest sequestering 7.8 tonnes of CO2-e by its fifth year."),
-        tags$p("To buy carbon credits from the market to offset the current emissions, the cost would be XXX - total emissions * $150."),
+        
+        textOutput("text1"),
+        textOutput("text2"),
+        textOutput("text3")
+        
+      ),
+      
+      tags$div(
         tags$p(tags$h3("Further information")),
         style = "font-family: 'Open Sans', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.8;",
         tags$p(tags$a(href="https://www.otago.ac.nz/sustainability/about/", "University of Otago's Sustainability Office")),
@@ -243,6 +248,17 @@ The_Complete_Table <- left_join(The_Complete_Table, Scenarios,
        Base_Scenario_Graph
     })
 
+    
+    output$text1 <- renderText({paste("Based on your selected inputs, " , "XX " , "hectares of trees would 
+                                      need to be planted by year 2025 in order to reach net zero emissions in 2030.")})
+    
+    output$text2 <- renderText({paste("These figures are based on 1 hectare of new indigenous forest sequestering 
+                                      7.8 tonnes of CO2-e by its fifth year.")})
+    
+    output$text3 <- renderText({paste("To buy carbon credits from the market to offset current emissions " ,
+                                      "the cost would be " , "$" , "XX", "(emissions x $150).")})
+    
+    
 }
 
 # Run the application
