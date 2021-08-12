@@ -142,6 +142,43 @@ Base_Scenario <- Base_Scenario %>% rename(Category = "Emissions")
  Lobc_Multipliers$Lobc_Multiplier <- round(Lobc_Multipliers$Lobc_Multiplier,
                                            digits = 2)
  
+ #Electricity Multiplier Table
+ Electricity_Multipliers <- read_excel("Project_Figures.xlsx",
+                                       sheet = "3. Electricity renewables %",
+                                       range = "A7:M17")
+ 
+ #Pivoting Electricity_Multipliers table to make graphing easier.
+ Electricity_Multipliers <- Electricity_Multipliers %>%
+   pivot_longer(cols = `2021`:`2032`, names_to = "Year",
+                values_to ="Electricity_Multiplier",
+                names_repair = "minimal")
+ 
+ #Rounding figures for Electricity_Multipliers table.
+ Electricity_Multipliers$Electricity_Multiplier <- round(Electricity_Multipliers$Electricity_Multiplier,
+                                                         digits = 2)
+ 
+ Electricity_Multipliers <- Electricity_Multipliers %>% rename(Category = "Emissions")
+ 
+ #Scenarios foe electricity
+ Scenarios <- read_excel("Project_Figures.xlsx",
+                         sheet = "3. Electricity renewables %",
+                         range = "A59:M64")
+ 
+ #Pivoting Scenarios table to make graphing easier.
+ Scenarios <- Scenarios %>%
+   pivot_longer(cols = `2021`:`2032`, names_to = "Year",
+                values_to ="Scenario_E",
+                names_repair = "minimal")
+ 
+ #Rounding figures for Electricity_Multipliers table.
+ Scenarios$Scenario_E <- round(Scenarios$Scenario_E,
+                               digits = 2)
+ 
+ Scenarios <- Scenarios %>%
+   pivot_wider(names_from = Scenarios, values_from = Scenario_E)
+ 
+ help("pivot_wider")
+ 
 #The table for question one with the multiplied totals
 The_Complete_Table <- left_join(Base_Scenario, Adjusted_Multiplier,
           by = c("Category", "Year"), keep = FALSE)
@@ -166,7 +203,7 @@ The_Complete_Table <- left_join(The_Complete_Table, Lobc_Multipliers,
 
 #NEW FUNCTION, REACTIVE GRAPH
    new_scenario <- reactive({
-     req(input$StudentSlider)#Add other sliders here later
+     req(input$ElectrictySlider)#Add other sliders here later
    })     
     
     output$plot <- renderPlot({
