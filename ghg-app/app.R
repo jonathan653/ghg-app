@@ -72,8 +72,7 @@ ui <- fluidPage(
       tags$div(
         
         textOutput("text1"),
-        textOutput("text2"),
-        textOutput("text3")
+        textOutput("text2")
         
       ),
       
@@ -251,15 +250,13 @@ The_Complete_Table <- left_join(The_Complete_Table, Scenarios,
     
     output$text1 <- renderText({paste("Based on your selected inputs: " , input$StudentSlider , "percentage change in student numbers, " , 
                                       input$BehaviourSlider , "level of behavioural change, " ,
-                                      input$ElectricitySlider , "rate of conversion from electricity to renewable energy, " ,
+                                      input$ElectricitySlider , "times rate of conversion from electricity to renewable energy, " ,
                                       "hectares of trees would 
                                       need to be planted by year 2025 in order to reach net zero emissions in 2030.")})
     
-    output$text2 <- renderText({paste("These figures are based on 1 hectare of new indigenous forest sequestering 
-                                      7.8 tonnes of CO2-e by its fifth year.")})
     
-    output$text3 <- renderText({paste("To buy carbon credits from the market to offset current emissions " ,
-                                      "the cost would be " , "$" , "XX", "(emissions x $150).")})
+    output$text2 <- renderText({paste("To buy carbon credits from the market to offset current emissions " ,
+                                      "the cost would be " , "$" , "XX", ".")})
     
     
 }
