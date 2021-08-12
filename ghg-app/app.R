@@ -255,7 +255,7 @@ The_Complete_Table <- left_join(The_Complete_Table, Scenarios,
                                       need to be planted by year 2025 in order to reach net zero emissions in 2030.")})
     
     
-    output$text2 <- renderText({paste("To buy carbon credits from the market to offset current emissions " ,
+    output$text2 <- renderText({paste("To buy carbon credits from the market to offset current emissions, " ,
                                       "the cost would be " , "$" , "XX", ".")})
     
     
