@@ -251,7 +251,7 @@ The_Complete_Table <- left_join(The_Complete_Table, Scenarios,
     output$text1 <- renderText({paste("Based on your selected inputs: " , input$StudentSlider , "percentage change in student numbers, " , 
                                       input$BehaviourSlider , "level of behavioural change, " ,
                                       input$ElectricitySlider , "times rate of conversion from electricity to renewable energy, " ,
-                                      "hectares of trees would 
+                                      "XX" , "hectares of trees would 
                                       need to be planted by year 2025 in order to reach net zero emissions in 2030.")})
     
     
