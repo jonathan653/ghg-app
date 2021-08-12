@@ -177,10 +177,8 @@ Base_Scenario <- Base_Scenario %>% rename(Category = "Emissions")
  Scenarios$Scenario_E <- round(Scenarios$Scenario_E,
                                digits = 2)
  
- # Scenarios <- Scenarios %>%
- #   pivot_wider(names_from = Scenarios, values_from = Scenario_E)
- 
- help("pivot_wider")
+  Scenarios <- Scenarios %>%
+    pivot_wider(names_from = Scenarios, values_from = Scenario_E)
  
 #The table for question one with the multiplied totals
 The_Complete_Table <- left_join(Base_Scenario, Adjusted_Multiplier,
@@ -194,43 +192,51 @@ The_Complete_Table <- left_join(The_Complete_Table, Lobc_Multipliers,
 The_Complete_Table <- left_join(The_Complete_Table, Electricity_Multipliers,
                                 by = c("Category", "Year"), keep = FALSE)
 
-  # #Pulls out Emissions category so we can use it in future function calls
-  # BaseEmissions <- function(Category, TheYear){
-  #   (Base_Scenario %>% filter(Emissions == Category, Year == TheYear) %>% select(Carbon_Emissions))$Carbon_Emissions
-  # }
-  # BaseEmissions( "Staff Air Travel - domestic and international",  2022)
-  # 
-  # #Pulls out multiplier so we can use it in future function calls
-  # BaseMultiplier <- function(Category, TheYear){
-  #   (Adjusted_Multiplier %>% filter(Emissions == Category, Year == TheYear) %>% select(Multipliers))$Multipliers
-  #   #returns multiplier
-  # }
-  # BaseMultiplier("Staff Air Travel - domestic and international",  2022)
+#The table for question three with the multiplied totals
+The_Complete_Table <- left_join(The_Complete_Table, Scenarios,
+                                by =  "Year", keep = FALSE)
   
 
 #NEW FUNCTION, REACTIVE GRAPH
-   new_scenario <- reactive({
-     req(input$ElectrictySlider)
-   #         if (input$ElectricitySlider == 5){
-   #                    result <- Scenarios$Scenario_5 * The_Complete_Table$Electricity_Multiplier
-   #                  }else if (input$ElectricitySlider == 4){
-   #                    result <- Scenarios$Scenario_4 * The_Complete_Table$Electricity_Multiplier
-   #                  }else if (input$ElectricitySlider == 3){
-   #                    result <- Scenarios$Scenario_3 * The_Complete_Table$Electricity_Multiplier
-   #                  }else if (input$ElectricitySlider == 2){
-   #                    result <- Scenarios$Scenario_2 * The_Complete_Table$Electricity_Multiplier
-   #                  }else if (input$ElectricitySlider == 1){
-   #                    result <- Scenarios$Scenario_1 * The_Complete_Table$Electricity_Multiplier
-   #                  }else{
-   #                    result <- 0
-   #                  }
-   })
+   # new_scenario <- reactive({
+   #   req(input$ElectrictySlider)
+   #         case_when (input$ElectricitySlider == 5 ~  Scenario_5 * Electricity_Multiplier,
+   #                  input$ElectricitySlider == 4 ~ Scenario_4 * Electricity_Multiplier,
+   #                  input$ElectricitySlider == 3 ~  Scenario_3 * Electricity_Multiplier,
+   #                  input$ElectricitySlider == 2 ~  Scenario_2 * Electricity_Multiplier,
+   #                  input$ElectricitySlider == 1 ~ Scenario_1 * Electricity_Multiplier)
+   # })
+   # 
+   # help(case_when)
+#  new_scenario <- function(i)({
+#    The_Complete_Table %>%
+#    if (i == 5){
+#      result = Scenario_5 * Electricity_Multiplier
+#    }else if (i == 4){
+#      result = Scenario_4 * Electricity_Multiplier
+#    }else if (i == 3){
+#      result = Scenario_3 * Electricity_Multiplier
+#    }else if (i == 2){
+#      result = Scenario_2 * Electricity_Multiplier
+#    }else if (i == 1){
+#      result = Scenario_1 * Electricity_Multiplier
+#    }else{
+#      result = 0
+#    }
+#    return(result)
+# })
+#  new_scenario(5)
     
     output$plot <- renderPlot({
   # req(new_scenario())
        Base_Scenario_Graph <- The_Complete_Table %>%
          mutate(Total_Emissions = Carbon_Emissions * (1 + (Multipliers * input$StudentSlider) 
-                                                      + (Lobc_Multiplier * input$BehaviourSlider))) %>% 
+                                                      + (Lobc_Multiplier * input$BehaviourSlider)
+                                                      + (case_when (input$ElectricitySlider == 5 ~  Scenario_5 * Electricity_Multiplier,
+                                                                    input$ElectricitySlider == 4 ~ Scenario_4 * Electricity_Multiplier,
+                                                                    input$ElectricitySlider == 3 ~  Scenario_3 * Electricity_Multiplier,
+                                                                    input$ElectricitySlider == 2 ~  Scenario_2 * Electricity_Multiplier,
+                                                                    input$ElectricitySlider == 1 ~ Scenario_1 * Electricity_Multiplier)))) %>% 
          ggplot() +
          geom_col(aes(x = Year, y = Total_Emissions, fill = Category),
                   position = position_stack(reverse = TRUE), na.rm = TRUE,
