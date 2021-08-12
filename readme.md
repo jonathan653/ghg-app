@@ -7,9 +7,9 @@ By Brett, Don, Jonathan, and Monique
 
 
 <h4>Notes</h4>
-- Demo URL link -> TBC<br>
+- Demo URL link -> TBA<br>
 - Limited features for free shinyapps.io account<br>
-- Capped to 25 active hours per month 
+- Capped to 25 active hours per month<br>
 - Deployed from RShiny project script<br>
 - Data provided by Craig Cliff<br>
 - Ability to interact with sliders and plot visualisation<br>
