@@ -129,12 +129,26 @@ Base_Scenario <- Base_Scenario %>% rename(Category = "Emissions")
 
  Adjusted_Multiplier <- Adjusted_Multiplier %>% rename(Category = "Emissions") 
    
-  
+ #Level of behavioural change (LOBC)
+ Lobc_Multipliers <- read_excel("Project_Figures.xlsx",
+                                sheet = "2. Lobc", range = "A16:M26")
+ 
+ #Pivoting Lobc_Multiplier table to make graphing easier.
+ Lobc_Multipliers <- Lobc_Multipliers %>%
+   pivot_longer(cols = `2021`:`2032`, names_to = "Year",
+                values_to ="Lobc_Multiplier",
+                names_repair = "minimal")
+ #Rounding figures for Lobc_Multipliers table.
+ Lobc_Multipliers$Lobc_Multiplier <- round(Lobc_Multipliers$Lobc_Multiplier,
+                                           digits = 2)
+ 
 #The table for question one with the multiplied totals
 The_Complete_Table <- left_join(Base_Scenario, Adjusted_Multiplier,
           by = c("Category", "Year"), keep = FALSE)
   
-
+#The table for question two with the multiplied totals
+The_Complete_Table <- left_join(The_Complete_Table, Lobc_Multipliers,
+                                by = c("Category", "Year"), keep = FALSE) 
 
   # #Pulls out Emissions category so we can use it in future function calls
   # BaseEmissions <- function(Category, TheYear){
@@ -158,7 +172,7 @@ The_Complete_Table <- left_join(Base_Scenario, Adjusted_Multiplier,
     output$plot <- renderPlot({
   req(new_scenario())
        Base_Scenario_Graph <- The_Complete_Table %>%
-         mutate(Total_Emissions = Carbon_Emissions * (1 + (Multipliers * input$StudentSlider))) %>% 
+         mutate(Total_Emissions = Carbon_Emissions * (1 + (Multipliers * input$StudentSlider)+ (Lobc_Multiplier * input$BehaviourSlider))) %>% 
          ggplot() +
          geom_col(aes(x = Year, y = Total_Emissions, fill = Category),
                   position = position_stack(reverse = TRUE), na.rm = TRUE,
