@@ -12,4 +12,4 @@ By Brett, Don, Jonathan, and Monique
 - Capped to 25 active hours of use per month<br>
 - Deployed from RShiny<br>
 - Data provided by Craig Cliff<br>
-- Added ability to interact with sliders and plot visualisation (TBC)<br>
+- Added ability to interact with sliders and plot visualisation<br>
