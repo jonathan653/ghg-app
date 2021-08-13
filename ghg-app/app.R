@@ -180,7 +180,6 @@ Scenarios <- Scenarios %>%
   pivot_longer(cols = `2021`:`2032`, names_to = "Year",
                 values_to ="Scenario_E",
                 names_repair = "minimal")
-<<<<<<< HEAD
 #Rounding figures for Electricity_Multipliers table.
 Scenarios$Scenario_E <- round(Scenarios$Scenario_E,
                               digits = 2)
@@ -188,18 +187,6 @@ Scenarios$Scenario_E <- round(Scenarios$Scenario_E,
 Scenarios <- Scenarios %>% 
   pivot_wider(names_from = Scenarios, values_from = Scenario_E)
 
-
-
-=======
- 
- #Rounding figures for Electricity_Multipliers table.
- Scenarios$Scenario_E <- round(Scenarios$Scenario_E,
-                               digits = 2)
- 
-  Scenarios <- Scenarios %>%
-    pivot_wider(names_from = Scenarios, values_from = Scenario_E)
- 
->>>>>>> 11cac40001693074a9860b8fb5a412ceeb233802
 #The table for question one with the multiplied totals
 The_Complete_Table <- left_join(Base_Scenario, Adjusted_Multiplier,
           by = c("Category", "Year"), keep = FALSE)
@@ -215,42 +202,7 @@ The_Complete_Table <- left_join(The_Complete_Table, Electricity_Multipliers,
 #The table for question three with the multiplied totals
 The_Complete_Table <- left_join(The_Complete_Table, Scenarios,
                                 by =  "Year", keep = FALSE)
-<<<<<<< HEAD
-rm(The_Complete_Table)  
-help("geom_col")
-=======
-  
 
->>>>>>> 11cac40001693074a9860b8fb5a412ceeb233802
-#NEW FUNCTION, REACTIVE GRAPH
-   # new_scenario <- reactive({
-   #   req(input$ElectrictySlider)
-   #         case_when (input$ElectricitySlider == 5 ~  Scenario_5 * Electricity_Multiplier,
-   #                  input$ElectricitySlider == 4 ~ Scenario_4 * Electricity_Multiplier,
-   #                  input$ElectricitySlider == 3 ~  Scenario_3 * Electricity_Multiplier,
-   #                  input$ElectricitySlider == 2 ~  Scenario_2 * Electricity_Multiplier,
-   #                  input$ElectricitySlider == 1 ~ Scenario_1 * Electricity_Multiplier)
-   # })
-   # 
-   # help(case_when)
-#  new_scenario <- function(i)({
-#    The_Complete_Table %>%
-#    if (i == 5){
-#      result = Scenario_5 * Electricity_Multiplier
-#    }else if (i == 4){
-#      result = Scenario_4 * Electricity_Multiplier
-#    }else if (i == 3){
-#      result = Scenario_3 * Electricity_Multiplier
-#    }else if (i == 2){
-#      result = Scenario_2 * Electricity_Multiplier
-#    }else if (i == 1){
-#      result = Scenario_1 * Electricity_Multiplier
-#    }else{
-#      result = 0
-#    }
-#    return(result)
-# })
-#  new_scenario(5)
     
     output$plot <- renderPlot({
   # req(new_scenario())
