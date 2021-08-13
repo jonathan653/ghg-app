@@ -6,6 +6,7 @@
 #
 #    http://shiny.rstudio.com/
 #
+
 library(shiny)
 library(tidyverse)
 library(readr)
@@ -156,27 +157,26 @@ Base_Scenario <- Base_Scenario %>% rename(Category = "Emissions")
  
  Electricity_Multipliers <- Electricity_Multipliers %>% rename(Category = "Emissions")
  
-
- 
- 
-#Scenarios table for electricity slider.
-Scenarios <- read_excel("Project_Figures.xlsx",
+ #Scenarios foe electricity
+ Scenarios <- read_excel("Project_Figures.xlsx",
                          sheet = "3. Electricity renewables %",
                          range = "A59:M64")
-#pivoting Scenarios table for later use.
-Scenarios <- Scenarios %>% 
-  pivot_longer(cols = `2021`:`2032`, names_to = "Year",
+ 
+ #Pivoting Scenarios table to make graphing easier.
+ Scenarios <- Scenarios %>%
+   pivot_longer(cols = `2021`:`2032`, names_to = "Year",
                 values_to ="Scenario_E",
                 names_repair = "minimal")
-#Rounding figures for Electricity_Multipliers table.
-Scenarios$Scenario_E <- round(Scenarios$Scenario_E,
-                              digits = 2)
-#Pivot wider to get data ready for table merge
-Scenarios <- Scenarios %>% 
-  pivot_wider(names_from = Scenarios, values_from = Scenario_E)
-
-
-
+ 
+ #Rounding figures for Electricity_Multipliers table.
+ Scenarios$Scenario_E <- round(Scenarios$Scenario_E,
+                               digits = 2)
+ 
+ # Scenarios <- Scenarios %>%
+ #   pivot_wider(names_from = Scenarios, values_from = Scenario_E)
+ 
+ help("pivot_wider")
+ 
 #The table for question one with the multiplied totals
 The_Complete_Table <- left_join(Base_Scenario, Adjusted_Multiplier,
           by = c("Category", "Year"), keep = FALSE)
@@ -189,11 +189,20 @@ The_Complete_Table <- left_join(The_Complete_Table, Lobc_Multipliers,
 The_Complete_Table <- left_join(The_Complete_Table, Electricity_Multipliers,
                                 by = c("Category", "Year"), keep = FALSE)
 
-#The table for question three with the multiplied totals
-The_Complete_Table <- left_join(The_Complete_Table, Scenarios,
-                                by =  "Year", keep = FALSE)
-rm(The_Complete_Table)  
-help("geom_col")
+  # #Pulls out Emissions category so we can use it in future function calls
+  # BaseEmissions <- function(Category, TheYear){
+  #   (Base_Scenario %>% filter(Emissions == Category, Year == TheYear) %>% select(Carbon_Emissions))$Carbon_Emissions
+  # }
+  # BaseEmissions( "Staff Air Travel - domestic and international",  2022)
+  # 
+  # #Pulls out multiplier so we can use it in future function calls
+  # BaseMultiplier <- function(Category, TheYear){
+  #   (Adjusted_Multiplier %>% filter(Emissions == Category, Year == TheYear) %>% select(Multipliers))$Multipliers
+  #   #returns multiplier
+  # }
+  # BaseMultiplier("Staff Air Travel - domestic and international",  2022)
+  
+
 #NEW FUNCTION, REACTIVE GRAPH
    new_scenario <- reactive({
      req(input$ElectrictySlider)
@@ -224,8 +233,7 @@ help("geom_col")
          theme(legend.position="right") +
          guides(fill = guide_legend(reverse = TRUE)) +
          ylab("CO2 Emissions (Tonnes)") +
-         ylim(0, 50000) +
-         geom_hline(yintercept=20000, linetype="dashed", color = "black")
+         ylim(0, 50000)
        Base_Scenario_Graph
     })
 
