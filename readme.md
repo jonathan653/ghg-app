@@ -7,8 +7,9 @@ By Brett, Don, Jonathan, and Monique
 
 
 <h4>Notes</h4>
-- Demo URL link -> TBC<br>
-- Limited visibility count for free shinyapps.io account<br>
-- Deployed from RStudio script<br>
+- Demo URL link -> TBA<br>
+- Free shinyapps.io account set up for deployment<br>
+- Capped to 25 active hours of use per month<br>
+- Deployed from RShiny<br>
 - Data provided by Craig Cliff<br>
-- Added ability to export data visualisation (TBC)<br>
+- Added ability to interact with sliders and plot visualisation (TBC)<br>
