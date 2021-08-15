@@ -1,4 +1,3 @@
-
 #
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
@@ -34,7 +33,7 @@ ui <- fluidPage(
                   max = 1,
                   value = 0,
                   step = 0.10),
-      bsPopover("StudentSlider", "Percentage change", "Growth or decline in Equivalent Full Time Students", trigger = "hover"),
+      bsPopover("StudentSlider", "Percentage change", "The change in Equivalent Full Time Students can affect the amount of resources the University requires, and therefore indirectly impacts on greenhouse gas emissions.", trigger = "hover"),
       
       tags$style(HTML(".js-irs-1 .irs-single, .js-irs-1 .irs-bar-edge, .js-irs-1 .irs-bar {background: #00508F}")),
       sliderInput("BehaviourSlider",
@@ -57,8 +56,8 @@ ui <- fluidPage(
     # Show a plot of the generated distribution
     mainPanel(
       tags$div(
-        tags$p(tags$text(tags$strong("You can use this dashboard to change the high-level factors and easily understand their 
-                    impacts on the University's greenhouse gas emissions up to year 2032."))),
+        tags$p(tags$text(tags$strong("Use this dashboard to observe how variables and their interactions can 
+                    impact on the University's greenhouse gas emissions up to 2032."))),
         tags$style("text {color: #00508F;
                                  font-size: 20px;
                                  font-style: italic;
