@@ -20,7 +20,7 @@ ui <- fluidPage(
   # Application title
   tags$br(),
   tags$img(src = "https://www.otago.ac.nz/_assets/_gfx/logo@2x.png", width = "160px", height = "80px"),
-  titlePanel(tags$strong("GHG Emissions Pathway Tool")),
+  titlePanel("Greenhouse gas emissions dashboard"),
   style = "font-family: 'Open Sans', sans-serif;",
   tags$br(),
   # Sidebar with a slider input for number of bins
