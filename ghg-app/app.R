@@ -73,11 +73,6 @@ ui <- fluidPage(
       tags$div(
         
         textOutput("text1"),
-        textOutput("text2"),
-        tags$style("#text1 {color: black;
-                                 font-size: 16px;
-                                 }"
-        ),
         tags$style("#text2 {color: black;
                                  font-size:16px;
                                  }"
