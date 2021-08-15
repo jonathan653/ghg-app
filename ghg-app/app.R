@@ -45,7 +45,7 @@ ui <- fluidPage(
                 options = NULL),
       tags$style(HTML(".js-irs-2 .irs-single, .js-irs-2 .irs-bar-edge, .js-irs-2 .irs-bar {background: 	#00508F}")),
       sliderInput("ElectricitySlider",
-                  tags$h3("NZ electricity grid"),
+                  tags$h3("NZ electricity source"),
                   min = 1,
                   max = 5,
                   value = 1),
@@ -57,7 +57,7 @@ ui <- fluidPage(
     mainPanel(
       tags$div(
         tags$p(tags$text(tags$strong("Use this dashboard to observe how variables and their interactions can 
-                    impact on the University's greenhouse gas emissions up to 2032."))),
+                    impact on the University's greenhouse gas emissions up to 2032. The emissions are broken down into categories."))),
         tags$style("text {color: #00508F;
                                  font-size: 20px;
                                  font-style: italic;
