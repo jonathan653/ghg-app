@@ -57,7 +57,7 @@ ui <- fluidPage(
     mainPanel(
       tags$div(
         tags$p(tags$text(tags$strong("Use this dashboard to observe how variables and their interactions can 
-                    impact on the University's greenhouse gas emissions up to 2032. The emissions are broken down into categories."))),
+                    impact on the University's greenhouse gas emissions up to 2032. In the graphical plot, the emissions are broken down into categories."))),
         tags$style("text {color: #00508F;
                                  font-size: 20px;
                                  font-style: italic;
@@ -84,7 +84,8 @@ ui <- fluidPage(
         style = "font-family: 'Open Sans', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.8;",
         tags$p(tags$a(href="https://www.otago.ac.nz/sustainability/about/", "University of Otago's Sustainability Office")),
         tags$p(tags$a(href="https://www.otago.ac.nz/sustainability/news/otago828588.html", "University of Otago makes submission to ORC's draft 10 year plan")),
-        tags$p(tags$a(href="https://www.otago.ac.nz/sustainability/otago824241.pdf", "University of Otago's 2019 Greenhouse Gas Inventory"))
+        tags$p(tags$a(href="https://www.otago.ac.nz/sustainability/otago824241.pdf", "University of Otago's 2019 Greenhouse Gas Inventory")),
+        tags$p(tags$a(href="https://www.greenofficemovement.org/sustainability-assessment/", "University Sustainability Assessment Framework Tool"))
       ),
       tags$style("p {color: blue;
                                  font-size: 16px;
