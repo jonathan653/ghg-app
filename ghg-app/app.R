@@ -256,13 +256,9 @@ server <- function(input, output) {
                                     input$BehaviourSlider , "level of behavioural change, " ,
                                     input$ElectricitySlider , "times rate of conversion from electricity to renewable energy, " ,
                                     "XX" , "hectares of trees would 
-                                      need to be planted by year 2025 in order to reach net zero emissions in 2030.")})
-  
-  
-  output$text2 <- renderText({paste("To buy carbon credits from the market to offset current emissions, " ,
+                                      need to be planted by year 2025 in order to reach net zero emissions in 2030."  , 
+                                    "To buy carbon credits from the market to offset current emissions, " ,
                                     "the cost would be " , "$" , "XX", ".")})
-  
-  
 }
 
 # Run the application
