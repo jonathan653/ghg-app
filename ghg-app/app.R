@@ -217,15 +217,11 @@ server <- function(input, output) {
       ylim(0, 50000)
     Base_Scenario_Graph
   })
-  
- 
-
-
-      output$text01 <- renderText({paste("Based on your selected inputs: " , input$StudentSlider , "percentage change in student numbers, " , 
-                                    input$BehaviourSlider , "level of behavioural change, " ,
-                                    input$ElectricitySlider , "times rate of conversion from fossil fuel sources to renewable energy, ")})
     
-    output$text1 <- renderText({paste("Based on your selected inputs, " , Total_Emit_2030 <- The_Complete_Table %>%
+    output$text1 <- renderText({paste("Based on your selected inputs: " , input$StudentSlider , "percentage change in student numbers, " , 
+                                      input$BehaviourSlider , "level of behavioural change, " ,
+                                      input$ElectricitySlider , "times rate of conversion from fossil fuel sources to renewable energy, " ,
+                                      Total_Emit_2030 <- The_Complete_Table %>%
                                         mutate(Total_Emissions = Carbon_Emissions * (1 + (Multipliers * input$StudentSlider) 
                                                                                      + (Lobc_Multiplier * input$BehaviourSlider)
                                                                                      + (case_when (input$ElectricitySlider == 5 ~  Scenario_5 * Electricity_Multiplier,
