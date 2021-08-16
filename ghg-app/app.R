@@ -235,10 +235,9 @@ server <- function(input, output) {
                                         select(-Year)
                                       , "hectares of trees would 
                                       need to be planted by year 2025 in order to reach net zero emissions in 2030. These figures are based on 1 hectare of new indigenous forest sequestering 
-                                      7.8 tonnes of CO2-e by its fifth year.")})
-    
-    
-    output$text3 <- renderText({paste("To buy carbon credits from the market to offset current emissions " ,
+                                      7.8 tonnes of CO2-e by its fifth year." , 
+                                      
+                                      "To buy carbon credits from the market to offset current emissions " ,
                                       "the cost would be " , "$" , Total_Emit_2030 <- The_Complete_Table %>%
                                         mutate(Total_Emissions = Carbon_Emissions * (1 + (Multipliers * input$StudentSlider) 
                                                                                      + (Lobc_Multiplier * input$BehaviourSlider)
@@ -250,9 +249,9 @@ server <- function(input, output) {
                                         select(Total_Emissions) %>%
                                         filter(Year == 2030)%>%
                                         summarise(test = sum(Total_Emissions)*150)%>%
-                                        select(-Year)%>%return(formatC(test, big.mark = TRUE, digits = 2, justify = "none")), "(emissions x $150).")})
-    
-    
+                                        select(-Year)%>%return(formatC(test, big.mark = TRUE, digits = 2, justify = "none")), "(emissions x $150)."
+                                      
+                                      )})
 
       }
 
