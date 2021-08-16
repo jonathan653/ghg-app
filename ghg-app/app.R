@@ -70,8 +70,9 @@ ui <- fluidPage(
       tags$br(),
       
       tags$div(
-        
-        textOutput("text1")
+        textOutput("text01"),
+        textOutput("text1"),
+        textOutput("text3")
       ),
       
       tags$div(
@@ -222,7 +223,7 @@ server <- function(input, output) {
 
       output$text01 <- renderText({paste("Based on your selected inputs: " , input$StudentSlider , "percentage change in student numbers, " , 
                                     input$BehaviourSlider , "level of behavioural change, " ,
-                                    input$ElectricitySlider , "times rate of conversion from fossil fuel sources to renewable energy, "
+                                    input$ElectricitySlider , "times rate of conversion from fossil fuel sources to renewable energy, ")})
     
     output$text1 <- renderText({paste("Based on your selected inputs, " , Total_Emit_2030 <- The_Complete_Table %>%
                                         mutate(Total_Emissions = Carbon_Emissions * (1 + (Multipliers * input$StudentSlider) 
@@ -257,7 +258,7 @@ server <- function(input, output) {
     
     
 
-}
+      }
 
 # Run the application 
 
