@@ -218,7 +218,7 @@ server <- function(input, output) {
     Base_Scenario_Graph
   })
     
-    output$text1 <- renderText({paste("Based on your selected inputs: " , input$StudentSlider * 10, "percentage change in student numbers, level" , 
+    output$text1 <- renderText({paste("Based on your selected inputs: " , input$StudentSlider * 10, "percent increase in student numbers, level" , 
                                       input$BehaviourSlider , "of behavioural change, " ,
                                       input$ElectricitySlider , "times rate of conversion from fossil fuel sources to renewable energy, " ,
                                       Total_Emit_2030 <- The_Complete_Table %>%
