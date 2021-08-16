@@ -178,6 +178,7 @@ server <- function(input, output) {
   Scenarios <- Scenarios %>%
     pivot_wider(names_from = Scenarios, values_from = Scenario_E)
   
+
   #The table for question one with the multiplied totals
   The_Complete_Table <- left_join(Base_Scenario, Adjusted_Multiplier,
                                   by = c("Category", "Year"), keep = FALSE)
@@ -194,36 +195,6 @@ server <- function(input, output) {
   The_Complete_Table <- left_join(The_Complete_Table, Scenarios,
                                   by =  "Year", keep = FALSE)
   
-  
-  #NEW FUNCTION, REACTIVE GRAPH
-  # new_scenario <- reactive({
-  #   req(input$ElectrictySlider)
-  #         case_when (input$ElectricitySlider == 5 ~  Scenario_5 * Electricity_Multiplier,
-  #                  input$ElectricitySlider == 4 ~ Scenario_4 * Electricity_Multiplier,
-  #                  input$ElectricitySlider == 3 ~  Scenario_3 * Electricity_Multiplier,
-  #                  input$ElectricitySlider == 2 ~  Scenario_2 * Electricity_Multiplier,
-  #                  input$ElectricitySlider == 1 ~ Scenario_1 * Electricity_Multiplier)
-  # })
-  # 
-  # help(case_when)
-  #  new_scenario <- function(i)({
-  #    The_Complete_Table %>%
-  #    if (i == 5){
-  #      result = Scenario_5 * Electricity_Multiplier
-  #    }else if (i == 4){
-  #      result = Scenario_4 * Electricity_Multiplier
-  #    }else if (i == 3){
-  #      result = Scenario_3 * Electricity_Multiplier
-  #    }else if (i == 2){
-  #      result = Scenario_2 * Electricity_Multiplier
-  #    }else if (i == 1){
-  #      result = Scenario_1 * Electricity_Multiplier
-  #    }else{
-  #      result = 0
-  #    }
-  #    return(result)
-  # })
-  #  new_scenario(5)
   
   output$plot <- renderPlot({
     # req(new_scenario())
@@ -246,14 +217,46 @@ server <- function(input, output) {
     Base_Scenario_Graph
   })
   
-  
-  output$text1 <- renderText({paste("Based on your selected inputs: " , input$StudentSlider , "percentage change in student numbers, " , 
+ 
+
+
+      output$text01 <- renderText({paste("Based on your selected inputs: " , input$StudentSlider , "percentage change in student numbers, " , 
                                     input$BehaviourSlider , "level of behavioural change, " ,
-                                    input$ElectricitySlider , "times rate of conversion from fossil fuel sources to renewable energy, " ,
-                                    "XX" , "hectares of trees would 
-                                      need to be planted by year 2025 in order to reach net zero emissions in 2030."  , 
-                                    "To buy carbon credits from the market to offset these emissions, " ,
-                                    "the cost would be " , "$" , "XX", ".")})
+                                    input$ElectricitySlider , "times rate of conversion from fossil fuel sources to renewable energy, "
+    
+    output$text1 <- renderText({paste("Based on your selected inputs, " , Total_Emit_2030 <- The_Complete_Table %>%
+                                        mutate(Total_Emissions = Carbon_Emissions * (1 + (Multipliers * input$StudentSlider) 
+                                                                                     + (Lobc_Multiplier * input$BehaviourSlider)
+                                                                                     + (case_when (input$ElectricitySlider == 5 ~  Scenario_5 * Electricity_Multiplier,
+                                                                                                   input$ElectricitySlider == 4 ~ Scenario_4 * Electricity_Multiplier,
+                                                                                                   input$ElectricitySlider == 3 ~  Scenario_3 * Electricity_Multiplier,
+                                                                                                   input$ElectricitySlider == 2 ~  Scenario_2 * Electricity_Multiplier,
+                                                                                                   input$ElectricitySlider == 1 ~ Scenario_1 * Electricity_Multiplier))))%>%
+                                        select(Total_Emissions) %>%
+                                        filter(Year == 2030)%>%
+                                        summarise(round(sum(Total_Emissions)/7.8))%>%
+                                        select(-Year)
+                                      , "hectares of trees would 
+                                      need to be planted by year 2025 in order to reach net zero emissions in 2030. These figures are based on 1 hectare of new indigenous forest sequestering 
+                                      7.8 tonnes of CO2-e by its fifth year.")})
+    
+    
+    output$text3 <- renderText({paste("To buy carbon credits from the market to offset current emissions " ,
+                                      "the cost would be " , "$" , Total_Emit_2030 <- The_Complete_Table %>%
+                                        mutate(Total_Emissions = Carbon_Emissions * (1 + (Multipliers * input$StudentSlider) 
+                                                                                     + (Lobc_Multiplier * input$BehaviourSlider)
+                                                                                     + (case_when (input$ElectricitySlider == 5 ~  Scenario_5 * Electricity_Multiplier,
+                                                                                                   input$ElectricitySlider == 4 ~ Scenario_4 * Electricity_Multiplier,
+                                                                                                   input$ElectricitySlider == 3 ~  Scenario_3 * Electricity_Multiplier,
+                                                                                                   input$ElectricitySlider == 2 ~  Scenario_2 * Electricity_Multiplier,
+                                                                                                   input$ElectricitySlider == 1 ~ Scenario_1 * Electricity_Multiplier))))%>%
+                                        select(Total_Emissions) %>%
+                                        filter(Year == 2030)%>%
+                                        summarise(test = sum(Total_Emissions)*150)%>%
+                                        select(-Year)%>%return(formatC(test, big.mark = TRUE, digits = 2, justify = "none")), "(emissions x $150).")})
+    
+    
+
 }
 
 # Run the application
