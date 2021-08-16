@@ -218,8 +218,8 @@ server <- function(input, output) {
     Base_Scenario_Graph
   })
     
-    output$text1 <- renderText({paste("Based on your selected inputs: " , input$StudentSlider * 10, "percentage change in student numbers, " , 
-                                      input$BehaviourSlider , "level of behavioural change, " ,
+    output$text1 <- renderText({paste("Based on your selected inputs: " , input$StudentSlider * 10, "percentage change in student numbers, level" , 
+                                      input$BehaviourSlider , "of behavioural change, " ,
                                       input$ElectricitySlider , "times rate of conversion from fossil fuel sources to renewable energy, " ,
                                       Total_Emit_2030 <- The_Complete_Table %>%
                                         mutate(Total_Emissions = Carbon_Emissions * (1 + (Multipliers * input$StudentSlider) 
@@ -237,7 +237,7 @@ server <- function(input, output) {
                                       need to be planted by year 2025 in order to reach net zero emissions in 2030. These figures are based on 1 hectare of new indigenous forest sequestering 
                                       7.8 tonnes of CO2-e by its fifth year." , 
                                       
-                                      "To buy carbon credits from the market to offset current emissions " ,
+                                      "To buy carbon credits from the market to offset current emissions, " ,
                                       "the cost would be " , "$" , Total_Emit_2030 <- The_Complete_Table %>%
                                         mutate(Total_Emissions = Carbon_Emissions * (1 + (Multipliers * input$StudentSlider) 
                                                                                      + (Lobc_Multiplier * input$BehaviourSlider)
