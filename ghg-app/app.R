@@ -255,7 +255,7 @@ The_Complete_Table <- left_join(The_Complete_Table, Scenarios,
     
 }
 
-# Run the application
+# Run the application 
 
 shinyApp(ui = ui, server = server)
 
