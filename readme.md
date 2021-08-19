@@ -9,7 +9,7 @@ By Brett, Don, Jonathan, and Monique
 
 
 <h4>Notes</h4>
-- Demo URL link -> TBA<br>
+- Demo URL link -> https://otago-university.shinyapps.io/ghg-app/<br>
 - Free shinyapps.io account set up for deployment<br>
 - Capped to 25 active hours of use per month<br>
 - Deployed from RShiny<br>
