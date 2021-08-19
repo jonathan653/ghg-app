@@ -86,6 +86,15 @@ ui <- fluidPage(
       tags$style("text {font-size: 14px;
                                  }"),
       
+      tags$br(),
+      
+      tags$div(
+        tags$text("The categories were developed by Deloitte in their annual greenhouse gas emissions report for the University of Otago (provided below).
+                  The 'Other' category is a combination of all factors contributing to the University of Otago’s greenhouse gas emissions that aren’t deemed significant enough to be individual categories on their own. 
+                  These factors are subject to change in future versions of this dashboard and currently include student commuting, business travel - accommodation, steam & (MTHW) medium temperature hot water  - biomass (incl losses),
+                  business travel - mileage, taxis and shuttles, fugitive emissions - refrigerants, mobile combustion - diesel, petrol, pcard & marine, stationary combustion - biomass, purchased goods and services - water, stationary combustion - diesel, employee commuting - public transport, construction & demolition.")
+      ),
+      
       tags$div(
         tags$p(tags$h3("Further information")),
         tags$p(tags$a(href="https://www.otago.ac.nz/sustainability/about/", "University of Otago's Sustainability Office")),
