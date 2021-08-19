@@ -33,7 +33,7 @@ ui <- fluidPage(
                   max = 1,
                   value = 0,
                   step = 0.25),
-      bsPopover("StudentSlider" , "Percentage of change in student numbers" , "The change in Equivalent Full Time Students can affect the amount of resources the University requires, and therefore indirectly impacts on greenhouse gas emissions. Note: the slider bar moves on a 10% incremental increase in student numbers i.e. 0.1 = 10%", trigger = "hover"),
+      bsPopover("StudentSlider" , "Percentage of change in student numbers" , "The change in Equivalent Full Time Students can affect the amount of resources the University requires, and therefore indirectly impacts on greenhouse gas emissions. Note: the slider bar moves on a 25% incremental change in student numbers i.e. 0.25 = 25%", trigger = "hover"),
       
       tags$style(HTML(".js-irs-1 .irs-single, .js-irs-1 .irs-bar-edge, .js-irs-1 .irs-bar {background: #00508F}")),
       sliderInput("BehaviourSlider",
@@ -42,7 +42,7 @@ ui <- fluidPage(
                   max = +1.25,
                   value = 0,
                   step = 0.25),
-      bsPopover("BehaviourSlider", "Level of change by University", "How much the University is doing to commit / act on reducing greenhouse gas emissions on campus through initiatives. Examples include subsidising public transport, reducing vegan food prices, or setting up more recycling bins on campus. Note: the slider bar is currently set at moderate. -1 = low; -1.25  = very  low; +1 = high; +1.25  = very high", trigger = "hover",
+      bsPopover("BehaviourSlider", "Level of change by University", "How much the University is doing to commit / act on reducing greenhouse gas emissions on campus through initiatives. Examples include subsidising public transport, reducing vegan food prices, or setting up more recycling bins on campus. Note: the slider bar is currently set at moderate. -1.25 = very low; -1 = low; +1 = high; +1.25  = very high", trigger = "hover",
                 options = NULL),
       tags$style(HTML(".js-irs-2 .irs-single, .js-irs-2 .irs-bar-edge, .js-irs-2 .irs-bar {background: 	#00508F}")),
       sliderInput("ElectricitySlider",
@@ -58,9 +58,9 @@ ui <- fluidPage(
     mainPanel(
       tags$div(
         tags$h3("Current forecast emissions"),
-        tags$p(tags$text(tags$strong("Use this dashboard to observe how variables and their interactions can 
+        tags$p(tags$h4(tags$strong("Use this dashboard to observe how variables and their interactions can 
                     impact on the University's greenhouse gas emissions up to 2032. In the graphical plot, the emissions are broken down into categories."))),
-        tags$style("text {color: #00508F;
+        tags$style("h4 {color: #00508F;
                                  font-size: 20px;
                                  font-style: italic;
                                  }"
@@ -72,10 +72,19 @@ ui <- fluidPage(
       tags$br(),
       
       tags$div(
-        textOutput("text01"),
-        textOutput("text1"),
-        textOutput("text3")
+        textOutput("text1")
       ),
+      
+      tags$br(),
+      
+      tags$div(
+        tags$text("Notes: Each of the variables (i.e. student numbers, behavioural change, NZ electricity source) have a quantified impact on the various categories of emissions. For example: for a 10% change in student numbers, 
+                  emissions related to the category “staff air travel” is impacted by 25% of this 10% change in student numbers. 
+                  In subsequent years, the impact is projected to 50%, which could be regulated by University management.")
+      ),
+      
+      tags$style("text {font-size: 14px;
+                                 }"),
       
       tags$div(
         tags$p(tags$h3("Further information")),
