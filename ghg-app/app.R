@@ -9,7 +9,6 @@
 
 library(shiny)
 library(tidyverse)
-library(readr)
 library(readxl)
 library(shinyBS)
 
@@ -32,8 +31,9 @@ ui <- fluidPage(
                   min = -.50,
                   max = 1,
                   value = 0,
-                  step = 0.25),
-      bsPopover("StudentSlider" , "Percentage of change in student numbers" , "The change in Equivalent Full Time Students can affect the amount of resources the University requires, and therefore indirectly impacts on greenhouse gas emissions. Note: the slider bar moves on a 25% incremental change in student numbers i.e. 0.25 = 25%", trigger = "hover"),
+                  step = 0.10),
+      bsPopover("StudentSlider" , "Percentage of change in student numbers" , "The change in Equivalent Full Time Students can affect the amount of resources the University requires, and therefore indirectly impacts on greenhouse gas emissions. Note: the slider bar moves on a 10% incremental increase in student numbers i.e. 0.1 = 10%", trigger = "hover"),
+
       
       tags$style(HTML(".js-irs-1 .irs-single, .js-irs-1 .irs-bar-edge, .js-irs-1 .irs-bar {background: #00508F}")),
       sliderInput("BehaviourSlider",
