@@ -66,7 +66,7 @@ ui <- fluidPage(
                                  }"
         )
       ),
-      
+      tags$br(),
       plotOutput("plot"),
       
       tags$br(),
@@ -75,26 +75,63 @@ ui <- fluidPage(
         textOutput("text1")
       ),
       
-      tags$br(),
-      
       tags$div(
-        tags$text("Notes: Each of the variables (i.e. student numbers, behavioural change, NZ electricity source) have a quantified impact on the various categories of emissions. For example: for a 10% change in student numbers, 
+        tags$h3("Notes"),
+      tags$text("Each of the variables (i.e. student numbers, behavioural change, NZ electricity source) have a quantified impact on the various categories of emissions. For example: for a 10% change in student numbers, 
                   emissions related to the category “staff air travel” is impacted by 25% of this 10% change in student numbers. 
                   In subsequent years, the impact is projected to 50%, which could be regulated by University management.")
       ),
-      
       tags$style("text {font-size: 14px;
                                  }"),
       
       tags$br(),
       
       tags$div(
-        tags$text("The categories were developed by Deloitte in their annual greenhouse gas emissions report for the University of Otago (provided below).
-                  The 'Other' category is a combination of all factors contributing to the University of Otago’s greenhouse gas emissions that aren’t deemed significant enough to be individual categories on their own. 
-                  These factors are subject to change in future versions of this dashboard and currently include student commuting, business travel - accommodation, steam & (MTHW) medium temperature hot water  - biomass (incl losses),
+        tags$text("The categories were developed by Deloitte in their annual greenhouse gas emissions report for the University of Otago (provided below)."),
+        tags$br(),
+        tags$br(),
+        tags$text(tags$strong("Staff Air Travel - domestic and international")),
+        tags$br(),
+        tags$text("Emissions generated from staff air travel, both international and domestic."),
+        tags$br(),
+        tags$text(tags$strong("Student air travel - domestic and international")),
+        tags$br(),
+        tags$text("Emissions generated from student air travel, both international and domestic."),
+        tags$br(),
+        tags$text(tags$strong("Steam & MTHW - coal (incl losses)")),
+        tags$br(),
+        tags$text("Steam and medium temperature hot water (MTHW) generated from coal power. This includes losses generated in transmission and distribution."),
+        tags$br(),
+        tags$text(tags$strong("Electricity (incl transmission losses)")),
+        tags$br(),
+        tags$text("The emissions generated from the production of electricity. This includes losses generated in transmission and distribution."),
+        tags$br(),
+        tags$text(tags$strong("Waste from operations - to landfill, recycling and water processing")),
+        tags$br(),
+        tags$text("The emissions generated from waste to landfill, recycling and water processing. “Emissions include meat (excluding poultry), poultry, pulp and paper, wine, dairy processing.”"),
+        tags$br(),
+        tags$text(tags$strong("Purchased Goods and Services - food")),
+        tags$br(),
+        tags$text("The emissions resulting from the purchase of food fall into two main categories: Food for consumption by students in residential colleges and food for sale in retail outlets or events."),
+        tags$br(),
+        tags$text(tags$strong("Stationary Combustion - coal")),
+        tags$br(),
+        tags$text("Stationary combustion fuels are burnt in a fixed unit or asset, such as a boiler. Emissions occur from the combustion of fuels from sources owned or controlled by the reporting organisation."),
+        tags$br(),
+        tags$text(tags$strong("Employee Commuting - private vehicles")),
+        tags$br(),
+        tags$text("Staff commuting to and from the Otago University campus has been based on two primary sources of data - census mapping and the 2019 staff travel survey."),
+        tags$br(),
+        tags$text(tags$strong("Stationary Combustion - LPG")),
+        tags$br(),
+        tags$text("Stationary combustion fuels are burnt in a fixed unit or asset, such as a boiler. Emissions occur from the combustion of fuels from sources owned or controlled by the reporting organisation."),
+        tags$br(),
+        tags$text(tags$strong("Other")),
+        tags$br(),
+        tags$text("A combination of all factors contributing to the University of Otago’s greenhouse gas emissions that aren’t deemed significant enough to be individual categories on their own. 
+                  These factors are subject to change in future versions of this dashboard and currently include student commuting, business travel - accommodation, steam & (MTHW) - biomass (incl losses),
                   business travel - mileage, taxis and shuttles, fugitive emissions - refrigerants, mobile combustion - diesel, petrol, pcard & marine, stationary combustion - biomass, purchased goods and services - water, stationary combustion - diesel, employee commuting - public transport, construction & demolition.")
       ),
-      
       tags$div(
         tags$p(tags$h3("Further information")),
         tags$p(tags$a(href="https://www.otago.ac.nz/sustainability/about/", "University of Otago's Sustainability Office")),
