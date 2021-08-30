@@ -16,6 +16,8 @@ By Brett, Don, Jonathan, and Monique
 - Data provided by Craig Cliff<br>
 - Added ability to interact with sliders and plot visualisation<br>
 
-<img width="838" alt="Screen Shot 2021-08-31 at 8 23 06 AM" src="https://user-images.githubusercontent.com/81852222/131400801-9a4536b8-e847-4319-8ecc-851f462b3164.png">
-<img width="837" alt="Screen Shot 2021-08-31 at 8 23 21 AM" src="https://user-images.githubusercontent.com/81852222/131400816-a016219c-9d7d-4069-a424-3ebfbbfe88bb.png">
+<h4>Screenshots</h4>
+<img width="500" alt="Screen Shot 2021-08-31 at 8 23 06 AM" src="https://user-images.githubusercontent.com/81852222/131401013-96ecded7-ddf9-4e26-b0cc-9fd877f7f8b3.png">
+
+<img width="500" alt="Screen Shot 2021-08-31 at 8 23 21 AM" src="https://user-images.githubusercontent.com/81852222/131400816-a016219c-9d7d-4069-a424-3ebfbbfe88bb.png">
 
